@@ -1,4 +1,4 @@
-const { Router } = require('express');
+const { Router, request} = require('express');
 const authController = require('../controllers/auth.controller');
 const {check} = require("express-validator");
 const validatorFields = require("../middleware/validator.fields");

@@ -22,5 +22,13 @@ jwtController.generateToken = (id) => {
 jwtController.verifyToken = (token) => {
     return jwt.verify(token, process.env.JWT_SECRET);
 }
+jwtController.verifyTokenFromSocket = (token) => {
+    try {
+        const { id } = jwt.verify(token, process.env.JWT_SECRET);
+        return [ true, id ];
+    } catch (e) {
+        return [ false, null ];
+    }
+}
 
 module.exports = jwtController;
