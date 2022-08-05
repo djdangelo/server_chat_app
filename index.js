@@ -12,6 +12,7 @@ app.use(express.json());
 const server = require('http').createServer(app);
 app.use('/api/users', require('./router/users.routes'));
 app.use('/api/auth', require('./router/auth.routes'));
+app.use('/api/messages', require('./router/messages.routes'));
 app.use('/*', async (req, res) => {
     return res.status(400).json({
         OK: false,

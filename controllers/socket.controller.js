@@ -1,5 +1,5 @@
 const Users = require('../models/users.model');
-
+const Messages = require('../models/messages.model');
 const socketController = {};
 
 socketController.isUserConnected = async (id) => {
@@ -22,5 +22,14 @@ socketController.isUserDisconnected = async (id) => {
         console.log(e);
     }
 };
+socketController.saveMessages = async (data) => {
+    try {
+        const message = new Messages(data);
+        await message.save();
+        return true;
+    } catch (e) {
+        return false;
+    }
+}
 
 module.exports = socketController;

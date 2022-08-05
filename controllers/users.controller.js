@@ -8,9 +8,10 @@ usersController.listUser = async (req, res) => {
     try {
         const from = Number(req.query.from) || 0;
         const [ listUser, total ] = await Promise.all([
-            Users.find()
+            Users.find({ _id: { $ne: req.id } })
+                .sort('-online')
                 .skip(from)
-                .limit(5),
+                .limit(20),
             Users.countDocuments()
         ]);
         res.json({

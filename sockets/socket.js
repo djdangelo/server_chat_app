@@ -8,6 +8,13 @@ io.on('connection', client => {
     console.log('Cliente conectado');
     if (!valid) { return client.disconnect(); }
     socketController.isUserConnected(id);
+
+    client.join(id);
+    client.on('personal-message', async (payload) => {
+        await socketController.saveMessages(payload);
+        io.to(payload.For).emit('personal-message', payload);
+    });
+
     client.on('disconnect', () => {
         socketController.isUserDisconnected(id);
         console.log('Cliente desconectado');
